@@ -38,7 +38,7 @@ for n=1:N                            %loop over independent Markov chains
 end
 
 %compute mean of autocovariance matrix
-autocovar = autocovar/N;
+autocovar = autocovar(1:64,1:64,L:2*L-1)/N;
 
 
 
