@@ -17,7 +17,7 @@ phi = @(x,y) ((x+h).*(y+h).*S(x+h,y+h) + (h-x).*(h-y).*S(x,y) ...
 lbl = @(i,j) 33*j+i+1;
 inv_lbl = @(k) [k-1-33*floor((k-1)/33),floor((k-1)/33)];
 
-%construct measurement matrix, M, for measurements
+%construct measurement matrix, M
 xs = 1/14:1/14:13/14;    %measurement points
 M = zeros(13,13,33^2);
 for k=1:33^2
