@@ -9,11 +9,11 @@ h = 1/32;
 S = @(x,y) heaviside(x).*heaviside(y) ...
            .*(1-heaviside(x-h)).*(1-heaviside(y-h));
 
-%define tent function on the domain [0,2h]x[0,2h]
+%define tent function on the domain [-h,h]x[-h,h]
 phi = @(x,y) ((x+h).*(y+h).*S(x+h,y+h) + (h-x).*(h-y).*S(x,y) ... 
           + (x+h).*(h-y).*S(x+h,y) + (h-x).*(y+h).*S(x,y+h))/h^2;
 
-%define conversion function for dof's from 2D to scalar label, and inverse
+%define function that converts from (i,j) to dof, and its inverse
 lbl = @(i,j) 33*j+i+1;
 inv_lbl = @(k) [k-1-33*floor((k-1)/33),floor((k-1)/33)];
 
