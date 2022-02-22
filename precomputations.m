@@ -30,7 +30,7 @@ for k=1:33^2
 end
 M = reshape(M,[13^2 33^2]);
 
-%construct exact coefficient matrix, thetas0
+%construct exact coefficient matrix, theta_hat
 theta_hat = ones(8,8);
 theta_hat(2:3,2:3) = 0.1;
 theta_hat(6:7,6:7) = 10;
