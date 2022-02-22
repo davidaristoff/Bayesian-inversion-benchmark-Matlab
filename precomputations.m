@@ -18,7 +18,7 @@ lbl = @(i,j) 33*j+i+1;
 inv_lbl = @(k) [k-1-33*floor((k-1)/33),floor((k-1)/33)];
 
 %construct measurement matrix, M
-xs = 1/14:1/14:13/14;    %measurement points
+xs = 1/14:1/14:13/14;   %measurement points
 M = zeros(13,13,33^2);
 for k=1:33^2
     c = inv_lbl(k);
@@ -53,10 +53,10 @@ b(boundaries) = zeros(128,1);    %enforce boundary conditions on b
 exact_values
 
 %set global parameters and functions for simulation
-sig = 0.05;             %likelihood standard deviation
-sig_pr = 2;             %prior (log) standard deviation
-sig_prop = 0.0725;      %proposal (log) standard deviation
-theta0 = ones(8,8);     %initial theta values
+sig = 0.05;           %likelihood standard deviation
+sig_pr = 2;           %prior (log) standard deviation
+sig_prop = 0.0725;    %proposal (log) standard deviation
+theta0 = ones(8,8);   %initial theta values
 forward_solver_ = @(theta) ... 
                   forward_solver(theta,lbl,A_loc,Id,boundaries,b,M);
 log_probability_ = @(theta,z) log_probability(theta,z,z_hat,sig,sig_pr);
