@@ -63,6 +63,7 @@ parfor n=1:N
 
     %update theta means
     theta_means(:,:,n) = theta_mean/N_L;
+    
 end
 
 toc
