@@ -26,11 +26,11 @@ for i=0:31
     for j=0:31   %build A by summing over contribution from each cell
 
         %find local coefficient in 8x8 grid
-        thet = theta(floor(i/4)+1,floor(j/4)+1);
+        theta_loc = theta(floor(i/4)+1,floor(j/4)+1);
 
         %update A by including contribution from cell (i,j)
         dof = [lbl(i,j),lbl(i,j+1),lbl(i+1,j+1),lbl(i+1,j)];
-        A(dof,dof) = A(dof,dof) + thet*A_loc;
+        A(dof,dof) = A(dof,dof) + theta_loc*A_loc;
     end
 end
 
