@@ -69,7 +69,7 @@ end
 toc
 
 %compute statistics on data set
-[theta_mean,covars,autocovars] = get_statistics(data,theta_means);
+[theta_mean,covars,autocovar] = get_statistics(data,theta_means);
 
 %save data to Matlab workspace, labeled by N and N_L
 save (['data_N_' num2str(N) '_N_L_ ' num2str(N_L) '.mat'])
