@@ -17,7 +17,7 @@ load precomputations.mat
 
 %define lag time and data matrix
 data = zeros(8,8,L,N);   %data matrix of samples at lag times
-theta_means = zeros(8,8,N);      %overall mean of theta
+theta_means = zeros(8,8,N);   %overall mean of theta
 
 tic
 
