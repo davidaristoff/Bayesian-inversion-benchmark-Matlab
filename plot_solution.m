@@ -23,7 +23,7 @@ Mp = reshape(Mp,[n^2 33^2]);
 %run forward solver on mean of theta
 A = zeros(33^2,33^2);
 for i=0:31
-    for j=0:31    %build A by summing over contribution from each cell
+    for j=0:31   %build A by summing over contribution from each cell
 
         %find local coefficient in 8x8 grid
         thet = theta(floor(i/4)+1,floor(j/4)+1);
