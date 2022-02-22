@@ -43,4 +43,4 @@ A = sparse(A);
 U = A\b;
 
 %get new z values
-z = reshape((M*U)',[13^2 1]);
+z = M*U;
