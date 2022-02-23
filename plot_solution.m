@@ -31,6 +31,7 @@ for i=0:31
         %update A by including contribution from cell (i,j)
         dof = [lbl(i,j),lbl(i,j+1),lbl(i+1,j+1),lbl(i+1,j)];
         A(dof,dof) = A(dof,dof) + theta_loc*A_loc;
+        
     end
 end
 
