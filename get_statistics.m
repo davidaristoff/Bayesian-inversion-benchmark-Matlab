@@ -35,6 +35,7 @@ for n=1:N   %loop over independent Markov chains
 
     %update mean autocovariance matrix
     autocovar = autocovar + reshape(mat',[64 64 2*L-1]);
+    
 end
 
 %compute mean of autocovariance matrix
