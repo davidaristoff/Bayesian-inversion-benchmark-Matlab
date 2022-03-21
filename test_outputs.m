@@ -31,12 +31,6 @@ for i=1:9
         dzj_exact = dz(:,j);    %forward solver value for dz/dthetaj
         rel_errors(j) = norm(dzj_fin_diff-dzj_exact)/norm(dzj_exact);
     end
-
-    hold off
-    plot(dzj_fin_diff,'ob')
-    hold on
-    plot(dzj_exact,'xr')
-    pause(1)
     
     %display relative errors on dz
     disp(['file number ' num2str(i) ' max relative error on dz = ...'])
