@@ -16,17 +16,17 @@ parpool(workers)
 load precomputations.mat
 
 %define lag time and data matrix
-data = zeros(64,L,N);   %data matrix of samples at lag times
-theta_means = zeros(64,N);   %overall mean of theta
+data = zeros(8,8,L,N);   %data matrix of samples at lag times
+theta_means = zeros(8,8,N);   %overall mean of theta
 
 tic
 
 parfor n=1:N
 
     %set initial theta, theta mean, and z values of chain
-    theta = ones(64,1);
-    theta_mean = zeros(64,1);
-    z = forward_solver_(theta);
+    theta = theta0;
+    theta_mean = 0;
+    z = z0;
 
     for m=1:L
 
@@ -57,23 +57,19 @@ parfor n=1:N
         end
     
         %update data matrix
-        data(:,m,n) = theta;
+        data(:,:,m,n) = theta;
 
     end
 
     %update theta means
-    theta_means(:,n) = theta_mean/N_L;
+    theta_means(:,:,n) = theta_mean/N_L;
     
 end
 
 toc
 
-%shut down parallel pool
-poolobj = gcp('nocreate');
-delete(poolobj);
-
 %compute statistics on data set
 [theta_mean,covars,autocovar] = get_statistics(data,theta_means);
 
 %save data to Matlab workspace, labeled by N and N_L
-save (['MH_data_N_' num2str(N) '_N_L_' num2str(N_L) '.mat'])
+save (['data_N_' num2str(N) '_N_L_' num2str(N_L) '.mat'])
