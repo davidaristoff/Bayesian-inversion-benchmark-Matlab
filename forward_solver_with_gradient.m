@@ -15,7 +15,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [z,dz] = ... 
-    forward_solver( ... 
+    forward_solver_with_gradient( ... 
         theta,ij_to_dof,ij_to_grid,A_loc,Id,boundaries,b,M)
 
 %initialize matrix A for FEM linear solve, AU = b
@@ -42,8 +42,27 @@ A(:,boundaries) = Id(:,boundaries);
 %sparsify A
 A = sparse(A);
 
-%solve linear equation for coefficients, U
-U = A\b;
+%solve linear equation to get coefficients for both z and dz
+
+coeffs = A\[b,M'];
+
+%get matrix U, the solution to AU = b
+U = coeffs(:,1);
 
 %get new z values
 z = M*U;
+
+%now compute derivative, dz, of z with respect to theta
+dz = zeros(13^2,64);
+MA_inv = coeffs(:,2:end)';    %MA_inv = M*A^(-1)
+for i=0:31
+    for j=0:31    %build dz by summing over contribution from each cell
+        %find location in 8x8 grid associated to cell (i,j)
+        grd = ij_to_grid(i,j);
+
+        %update dz by including contribution from cell (i,j)
+        dof = [ij_to_dof(i,j),ij_to_dof(i,j+1), ...
+               ij_to_dof(i+1,j+1),ij_to_dof(i+1,j)];
+        dz(:,grd) = dz(:,grd) - MA_inv(:,dof)*(A_loc*U(dof));
+    end
+end

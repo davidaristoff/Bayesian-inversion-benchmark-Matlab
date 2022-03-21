@@ -14,8 +14,8 @@
 function [theta_mean,covars,autocovar] = get_statistics(data,theta_means);
 
 %compute overall mean of data, and get size of data matrix
-theta_mean = mean(theta_means,3);
-[~,~,L,N] = size(data);
+theta_mean = mean(theta_means,2);
+[~,L,N] = size(data);
 
 %initialize covariance matrices and mean autocovariance matrix
 covars = zeros(64,64,N);
@@ -25,7 +25,7 @@ autocovar = zeros(64,64,2*L-1);
 for n=1:N   %loop over independent Markov chains
     
     %get data from chain n
-    data_ = reshape(permute(data(:,:,:,n),[3 2 1]),[L 64]);
+    data_ = permute(data(:,:,n),[2 1]);
 
     %compute autocovariance matrix of chain n
     mat = xcov(data_,'unbiased');
@@ -35,7 +35,6 @@ for n=1:N   %loop over independent Markov chains
 
     %update mean autocovariance matrix
     autocovar = autocovar + reshape(mat',[64 64 2*L-1]);
-    
 end
 
 %compute mean of autocovariance matrix
