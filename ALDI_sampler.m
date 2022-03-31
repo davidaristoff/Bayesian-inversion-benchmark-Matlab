@@ -19,8 +19,8 @@ load precomputations.mat
 %define data matrix of mean theta values
 data = zeros(64,L);
 
-%define initial theta values
-thetas = normrnd(1,0.1,[64 N]);
+%define initial m = log(theta) values
+ms = normrnd(0,0.1,[64 N]);
 
 %initialize gradient values
 gradients = zeros(64,N);
@@ -30,37 +30,40 @@ thetas_running_means = zeros(64,1);
 
 tic
 
-for m=1:L
-    m
+for k=1:L
+
+    disp('percent complete = ...')
+    k/L
+    
     for l=1:lag
 
         %compute particle mean vector and covariance matrix
-        thetas_mean = mean(thetas,2);
-        sqrt_particle_covar = (thetas-thetas_mean)/sqrt(N);
+        ms_mean = mean(ms,2);
+        sqrt_particle_covar = (ms-ms_mean)/sqrt(N);
         particle_covar = sqrt_particle_covar*sqrt_particle_covar';
 
         %update particle positions
         parfor n=1:N
 
             %compute gradients for each particle
-            theta = thetas(:,n);
-            [z,dz] = forward_solver_with_gradient_(theta);
-            gradient = grad_log_probability_(theta,z,dz);
+            m = ms(:,n);
+            [z,dz] = forward_solver_with_gradient_(exp(m));
+            gradient = grad_log_probability_(m,z,dz);
     
             %update particle positions
-            thetas(:,n) = theta + ...
+            ms(:,n) = m + ...
                          particle_covar*gradient*dt + ... 
-                         ((d+1)/N)*(theta-thetas_mean)*dt + ...
+                         ((d+1)/N)*(m-ms_mean)*dt + ...
                          sqrt(2*dt)*sqrt_particle_covar*normrnd(0,1,[N 1]);
         end
 
         %update running mean values of theta
-        thetas_running_means = thetas_running_means + thetas_mean;
+        thetas_running_means = thetas_running_means + exp(ms_mean);
 
     end
     
     %update data matrix
-    data(:,m) = thetas_mean;
+    data(:,k) = exp(ms_mean);
 
 end
 

@@ -17,35 +17,35 @@ parpool(workers)
 load precomputations.mat
 
 %define lag time and data matrix
-data = zeros(64,L,N);   %data matrix of samples at lag times
+data = zeros(64,L,N);        %data matrix of samples at lag times
 theta_means = zeros(64,N);   %overall mean of theta
 
 tic
 
 parfor n=1:N
 
-    %set initial theta, theta mean, and z values of chain
-    theta = ones(64,1);
+    %set initial m = log(theta) and theta mean
+    m = zeros(64,1) + normrnd(0,0.1,[64 1]);
     theta_mean = zeros(64,1);
 
-    for m=1:L
+    for k=1:L
 
         for l=1:lag
 
             %compute gradient
-            [z,dz] = forward_solver_with_gradient_(theta);
-            gradient = grad_log_probability_(theta,z,dz);
+            [z,dz] = forward_solver_with_gradient_(exp(m));
+            gradient = grad_log_probability_(m,z,dz);
 
             %compute new theta value
-            theta = theta + gradient*dt + sqrt(2*dt)*normrnd(0,1,[64 1]);
+            m = m + gradient*dt + sqrt(2*dt)*normrnd(0,1,[64 1]);
             
             %update mean of theta
-            theta_mean = theta_mean + theta;
+            theta_mean = theta_mean + exp(m);
         
         end
     
         %update data matrix
-        data(:,m,n) = theta;
+        data(:,k,n) = exp(m);
 
     end
 

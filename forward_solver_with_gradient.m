@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %OUTPUTS:
 %z = vector of measurements
-%dz = matrix of derivatives of vector of measurements
+%dz = gradient of vector of measurements with respect to m = log(theta)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [z,dz] = ... 
@@ -43,14 +43,13 @@ A(:,boundaries) = Id(:,boundaries);
 %sparsify A
 A = sparse(A);
 
-%solve linear equation to get coefficients for both z and dz
-
+%solve two linear equations simultaneously for z and dz
 coeffs = A\[b,M'];
 
 %get matrix U, the solution to AU = b
 U = coeffs(:,1);
 
-%get new z values
+%get z values
 z = M*U;
 
 %now compute derivative, dz, of z with respect to theta
@@ -67,3 +66,6 @@ for i=0:31
         dz(:,grd) = dz(:,grd) - MA_inv(:,dof)*(A_loc*U(dof));
     end
 end
+
+%the above gives gradient of z wrt theta; to get gradient wrt m, do:
+dz = dz.*theta';
