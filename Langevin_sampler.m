@@ -36,7 +36,7 @@ parfor n=1:N
             [z,dz] = forward_solver_with_gradient_(exp(m));
             gradient = grad_log_probability_(m,z,dz);
 
-            %compute new theta value
+            %compute new m value
             m = m + gradient*dt + sqrt(2*dt)*normrnd(0,1,[64 1]);
             
             %update mean of theta
