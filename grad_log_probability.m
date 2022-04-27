@@ -18,7 +18,7 @@ function grad_log_pi = grad_log_probability(m,z,dz,z_hat,sig,sig_pr)
 grad_log_L = -dz'*(z-z_hat)/(sig^2);
 
 %compute log prior
-grad_log_pi_pr = -(m-sig^2)/(sig^2);
+grad_log_pi_pr = -(m-sig_pr^2)/(sig_pr^2);
 
 %compute log posterior
 grad_log_pi = grad_log_L + grad_log_pi_pr;
