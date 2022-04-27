@@ -30,7 +30,7 @@ thetas_running_means = zeros(64,1);
 
 tic
 
-for k=1:L
+parfor k=1:L
 
     disp('percent complete = ...')
     k/L
