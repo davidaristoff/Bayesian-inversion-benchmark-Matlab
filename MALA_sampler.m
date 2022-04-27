@@ -16,7 +16,7 @@ parpool(workers)
 %load precomputations
 load precomputations.mat
 
-%define lag time and data matrix
+%define data matrices
 data = zeros(64,L,N);        %data matrix of samples at lag times
 theta_means = zeros(64,N);   %overall mean of theta
 
