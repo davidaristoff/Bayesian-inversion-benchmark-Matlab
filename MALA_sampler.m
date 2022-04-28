@@ -49,8 +49,8 @@ parfor n=1:N
 
             %compute log acceptance probability
             log_accept = log_pi_prop-log_pi ...
-                         -norm(m-m_prop-dt*gradient_prop)/(4*dt) ...
-                         +norm(m_prop-m-dt*gradient)/(4*dt);
+                         -norm(m-m_prop-dt*gradient_prop)^2/(4*dt) ...
+                         +norm(m_prop-m-dt*gradient)^2/(4*dt);
 
             %accept or reject proposal
             if rand < exp(log_accept)
