@@ -26,7 +26,7 @@ ms = normrnd(0,0.1,[64 N]);
 gradients = zeros(64,N);
 
 %initialize running mean values of theta
-thetas_running_means = zeros(64,1);
+theta_mean = zeros(64,1);
 
 tic
 
@@ -58,7 +58,7 @@ for k=1:L
         end
 
         %update running mean values of theta
-        thetas_running_means = thetas_running_means + exp(ms_mean);
+        theta_mean = theta_mean + exp(ms_mean);
 
     end
     
@@ -68,7 +68,7 @@ for k=1:L
 end
 
 %normalize running mean values of theta
-thetas_running_means = thetas_running_means/N_L;
+theta_mean = theta_mean/N_L;
 
 toc
 
