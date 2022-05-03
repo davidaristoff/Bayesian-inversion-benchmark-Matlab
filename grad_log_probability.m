@@ -2,7 +2,7 @@
 %%%%%%%%%%%%%%%%% compute log probability, log pi %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %INPUTS: 
-%m = current 8x8 log parameter matrix
+%m = current 8x8 log parameter vector
 %z = current vector of measurements
 %z_hat = vector of "exact" measurements
 %sig = standard deviation parameter in likelihood
