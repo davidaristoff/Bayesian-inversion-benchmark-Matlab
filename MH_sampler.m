@@ -25,7 +25,7 @@ parfor n=1:N
 
     %set initial theta, theta mean, and z values of chain
     theta_mean = zeros(64,1);
-    m = ones(64,1);
+    m = zeros(64,1);
     z = forward_solver_(exp(m));
 
     for k=1:L
