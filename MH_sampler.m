@@ -34,7 +34,7 @@ parfor n=1:N
 
             %define proposal, theta_tilde
             xi = normrnd(0,sig_prop,[64 1]);
-            m_tilde = m.*xi;
+            m_tilde = m + xi;
         
             %compute new z values
             z_tilde = forward_solver_(exp(m_tilde));
