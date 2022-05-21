@@ -18,7 +18,7 @@ function log_pi = log_probability(m,z,z_hat,sig,sig_pr)
 log_L = -sum((z-z_hat).^2)/(2*sig^2);
 
 %compute log prior
-log_pi_pr = -sum((m-sig_pr).^2)/(2*sig_pr^2);
+log_pi_pr = -sum((m-sig_pr^2).^2)/(2*sig_pr^2);
 
 %compute log posterior
 log_pi = log_L+log_pi_pr;
