@@ -52,7 +52,7 @@ for k=1:L
         end
 
         %update running mean values of theta
-        theta_mean = theta_mean + exp(ms_mean);
+        theta_mean = theta_mean + mean(exp(ms),2);
 
     end
     
