@@ -69,7 +69,7 @@ for k=1:L
         theta_mean = theta_mean + mean(exp(ms),2);
     end      
     %update data matrix
-    data(:,k) = exp(mean(ms,2)); 
+    data(:,k) = mean(exp(ms,2)); 
     %periodically save data to Matlab workspace
     if k*l/1000 == floor(k*l/1000)
         save (['SVGD_data_N_' num2str(N) '_N_L_' num2str(N_L) '_dt_' ...
