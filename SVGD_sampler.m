@@ -86,3 +86,7 @@ theta_mean = theta_mean/N_L;
 poolobj = gcp('nocreate');
 delete(poolobj);
 
+%save data to workspace
+save (['SVGD_data_N_' num2str(N) '_N_L_' num2str(N_L) '_dt_' ...
+         num2str(dt) '_alph_' num2str(alph) '_useC_' useC '.mat'])
+
