@@ -57,7 +57,7 @@ for k=1:L
     end
     
     %update data matrix
-    data(:,k) = exp(ms_mean);
+    data(:,k) = mean(exp(ms),2);
 
 end
 
