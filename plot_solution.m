@@ -37,6 +37,7 @@ end
 
 %enforce boundary condition
 A(boundaries,:) = Id(boundaries,:);
+A(:,boundaries) = Id(:,boundaries);
 
 %sparsify A
 A = sparse(A);
